@@ -27,6 +27,12 @@ struct TouchPointView: View {
 
     var isShowLocation: Bool
 
+    // Novo parâmetro para controlar a cruz de mira
+    var isCrosshair: Bool
+    var crosshairColor: Color
+    var crosshairWidth: CGFloat
+    //-----
+
     var locationText: some View {
         let x = String(format: "%.1f", location.x)
         let y = String(format: "%.1f", location.y)
@@ -67,5 +73,22 @@ struct TouchPointView: View {
                         .position(x: radius, y: -16 - shadowRadius)
                 )
             }
+            //-----
+            .when(isCrosshair) {
+                $0.overlay(
+                    // Desenha a cruz de mira
+                    ZStack {
+                        // Linha horizontal
+                        Rectangle()
+                            .fill(crosshairColor)
+                            .frame(width: radius * 2, height: crosshairWidth)
+                        // Linha vertical
+                        Rectangle()
+                            .fill(crosshairColor)
+                            .frame(width: crosshairWidth, height: radius * 2)
+                    }
+                )
+            }
+            //------
     }
 }

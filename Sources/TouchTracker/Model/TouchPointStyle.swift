@@ -39,6 +39,12 @@ public struct TouchPointStyle: Equatable {
 
     /// display mode of touched points.
     public var displayMode: DisplayMode
+
+    public var isCrosshair: Bool
+    public var crosshairColor: Color
+    public var crosshairWidth: CGFloat
+
+
     
     /// Initializer
     /// - Parameters:
@@ -66,7 +72,12 @@ public struct TouchPointStyle: Equatable {
         shadowRadius: CGFloat = 3,
         shadowOffset: CGPoint = .zero,
         isShowLocation: Bool = false,
-        displayMode: DisplayMode = .always
+        displayMode: DisplayMode = .always,
+
+        isCrosshair: Bool = false,
+        crosshairColor: Color = .black,
+        crosshairWidth: CGFloat = 1
+
     ) {
         self.radius = radius
         self.color = color
@@ -80,5 +91,9 @@ public struct TouchPointStyle: Equatable {
         self.shadowOffset = shadowOffset
         self.isShowLocation = isShowLocation
         self.displayMode = displayMode
+
+        self.isCrosshair = isCrosshair
+        self.crosshairColor = crosshairColor
+        self.crosshairWidth = crosshairWidth
     }
 }

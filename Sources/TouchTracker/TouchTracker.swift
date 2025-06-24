@@ -44,6 +44,12 @@ public struct TouchTrackingView<Content: View>: View {
 
     var isShowLocation: Bool = false
 
+    // Novos parâmetros para a cruz de mira
+    var isCrosshair: Bool = false
+    var crosshairColor: Color = .black
+    var crosshairWidth: CGFloat = 1
+    ///-----
+
     var displayMode: DisplayMode = .always
 
     public init(_ content: Content) {
@@ -72,7 +78,12 @@ public struct TouchTrackingView<Content: View>: View {
                 shadowRadius: shadowRadius,
                 shadowOffset: shadowOffset,
                 image: image,
-                isShowLocation: isShowLocation
+                isShowLocation: isShowLocation,
+                //-----
+                isCrosshair: isCrosshair, // Novo parâmetro
+                crosshairColor: crosshairColor, // Novo parâmetro
+                crosshairWidth: crosshairWidth // Novo parâmetro
+                //----
             )
             .position(x: location.x + offset.x, y: location.y + offset.y)
             .allowsHitTesting(false)
@@ -150,6 +161,15 @@ extension TouchTrackingView {
         set(mode, for: \.displayMode)
     }
 
+    /// Configura a cruz de mira nos pontos tocados
+    public func touchPointCrosshair(_ enabled: Bool, color: Color = .black, width: CGFloat = 1) -> Self {
+        self
+            .set(enabled, for: \.isCrosshair)
+            .set(color, for: \.crosshairColor)
+            .set(width, for: \.crosshairWidth)
+    }
+    //------
+
     public func setTouchPointStyle(_ style: TouchPointStyle) -> Self {
         self
             .set(style.radius, for: \.radius)
@@ -164,6 +184,7 @@ extension TouchTrackingView {
             .set(style.shadowOffset, for: \.shadowOffset)
             .set(style.isShowLocation, for: \.isShowLocation)
             .set(style.displayMode, for: \.displayMode)
+
     }
 
     private func set<T>(_ value: T, for keyPath: WritableKeyPath<TouchTrackingView, T>) -> Self {
@@ -193,4 +214,3 @@ struct TouchTrackingView_Preview: PreviewProvider {
 #endif
     }
 }
-
